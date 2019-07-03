@@ -7,16 +7,12 @@ def f(x,S,c,m):
 	for i in range(m):
 		# a mascara tem que ir só até o tamanho dos valores
 		mult = 1
-		print(S[i])
+		#print(S[i])
 		for j in range(len(S[i])):
 			if(x[j]==1):
-				print('S[i][j]:',S[i][j])
 				mult*=S[i][j]
-		print(mult)
-		print(c[i])
 		val+= c[i]*mult
-		print(val)
-		a = 2/0
+		#print(val)
 	return val
 
 S,c = load.loadFile("nl01-40.txt")
