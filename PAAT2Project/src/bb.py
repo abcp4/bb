@@ -9,11 +9,14 @@ def f(x,S,c,m):
             #print(val)
     return val
 
-S,c = load.loadFile("nl01-40.txt")
+S,c = load.loadFile("../inputs/nl01-40.txt")
 m = len(S)
 print('m: ',m)
 print('S')
 #A mascara boolena que queremos encontrar
-x = np.asarray([0,0,0,0,0,1,0,1])
+#6,8
+x = np.zeros(30)
+x[5] = 1
+x[7] = 1
 v = f(x,S,c,m)
 print(v)
