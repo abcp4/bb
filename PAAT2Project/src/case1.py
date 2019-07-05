@@ -49,7 +49,7 @@ def branch_and_bound():
         i = 0
         #da pra melhorar essa parte para nao ter que fazer DOIS calculos seguindos
         while (i < len(array_de_nos)):
-            if (bb.resultado_de_soma(array_de_nos[i],x_sets,coeficientes,length) < max_value):
+            if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length) < max_value):
                 array_de_nos.remove(array_de_nos[i])
             else: i = i+1
         x = x+1
