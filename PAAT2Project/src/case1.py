@@ -10,20 +10,22 @@ print("WHAT")
 x_sets,coeficientes = load.loadFile("../inputs/nl01-40.txt")
 x_size = 30 #precisamos que load.loadFile tambem retorne quantos x existem
 
-length = len(x_sets)
+length = x_size
 
 def branch_and_bound():
     array_de_nos = []
     initial_x_set = create_initial_x_set(x_size)
     
     array_de_nos.append(initial_x_set)
-    relax_function_value = relax_function
+    relax_function_value = relax_function(x_sets, coeficientes)
     max_value = relax_function_value
+    max_set = []
     x = 0
     last_x = length-1
     
 
-    while(x <= last_x) or (len(array_de_nos) > 0):
+    while(x <= last_x) and (len(array_de_nos) > 0):
+        print(str(x) + " " + str(len(array_de_nos)))
         novo_set = []
         for set in array_de_nos:
             set_with = set
@@ -34,20 +36,19 @@ def branch_and_bound():
         array_de_nos = novo_set
         for set in array_de_nos:
             f_result = bb.f(set, x_sets, coeficientes, length)
-            gambiarra_f_result = float(f_result)
-            print (f_result)
-            max_value = max(max_value, gambiarra_f_result)
+            max_value = max(max_value, f_result)
+            max_set = set
         length_set = len(array_de_nos)
         i = 0
         #da pra melhorar essa parte para nao ter que fazer DOIS calculos seguindos
         while (i < len(array_de_nos)):
-            if (f(array_de_nos[i],x_sets,coeficientes,length) < max_value):
+            if (bb.f(array_de_nos[i],x_sets,coeficientes,length) < max_value):
                 array_de_nos.remove(array_de_nos[i])
             else: i = i+1
         x = x+1
         
-    
-    return array_de_nos[0], f(array_de_nos_0, x_sets,coeficientes,length)
+    print(max_set)
+    print(bb.f(max_set, x_sets,coeficientes,length))
     
 def create_initial_x_set(n):
     x_set = np.zeros(n)
