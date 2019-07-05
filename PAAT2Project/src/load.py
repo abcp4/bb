@@ -3,9 +3,9 @@ def loadFile(file):
     S = []
     c = []#coeficientes dos produtos
 
-    f = open(file, "r")
+    resultado_de_soma = open(file, "r")
     i = 0
-    for x in f:
+    for x in resultado_de_soma:
         #print(x)
         i+=1
         if(i<3):

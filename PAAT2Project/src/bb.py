@@ -1,7 +1,7 @@
 import numpy as np
 import load
 #queremos maximizar:
-def f(x,S,c,m):
+def resultado_de_soma(x,S,c,m):
     val = 0
     for i in range(len(x)):
         if(x[i]==1):
@@ -19,5 +19,5 @@ def test():
     x = np.zeros(30)
     x[3] = 1
     x[11] = 1
-    v = f(x,S,c,m)
+    v = resultado_de_soma(x,S,c,m)
     print(v)
