@@ -41,7 +41,10 @@ def branch_and_bound():
         for set in array_de_nos:
             f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length)
             max_value = max(max_value, f_result)
-            max_set = set
+            
+            if max_value == f_result:
+                max_set = set
+            
         length_set = len(array_de_nos)
         i = 0
         #da pra melhorar essa parte para nao ter que fazer DOIS calculos seguindos
