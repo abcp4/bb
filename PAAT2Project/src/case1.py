@@ -1,6 +1,7 @@
 import numpy as np
 import bb
 import load
+import copy
 
 #passo 1: ler dados do arquivo a ser testado
 #passo 2: aplicar branch and bound
@@ -41,9 +42,16 @@ def branch_and_bound():
         for set in array_de_nos:
             f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length)
             max_value = max(max_value, f_result)
-            
+            #print(max_value)
+            #print(f_result)
+            #print(max_set)
+            #print(set)
             if max_value == f_result:
-                max_set = set
+                #print("Substitute")
+                max_set = copy.deepcopy(set)
+                #print("new max_set")
+                #print(max_set)
+            #print("---------------------------------")
             
         length_set = len(array_de_nos)
         i = 0
