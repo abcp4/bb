@@ -1,11 +1,19 @@
 import numpy as np
 import load
 #queremos maximizar:
-def resultado_de_soma(x,S,c,m):
+def resultado_de_soma(conjunto_de_x_a_testar,conjuntos_de_x,coefs,m):
+    #para todos os conjuntos_de_x
+    #para cada conjunto de x
+    # somar = true
+    # se conjunto_de_x_a_testar[conjunto_de_x[i]-1] == 1
+    #    somar = true
+    # else somar = false
+    # if somar == true
+    #val += coefs[i]
     val = 0
-    for i in range(len(x)):
-        if(x[i]==1):
-            val+= c[i]
+    for i in range(len(conjunto_de_x_a_testar)):
+        if(conjunto_de_x_a_testar[i]==1):
+            val+= coefs[i]
             #print(val)
     return val
 
