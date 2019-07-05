@@ -16,13 +16,32 @@ def branch_and_bound():
     
     array_de_nos.append(initial_x_set)
     relax_function_value = relax_function
-    initial_x = 0
+    max_value = relax_function_value
+    x = 0
     last_x = length-1
     
+    while(x <= last_x) || (len(array_de_nos) > 0):
+        novo_set = []
+        for (set in array_de_nos):
+            set_with = set
+            set[x] = 1
+            novo_set.append(set_with)
+            set_without = set
+            novo_set.append(set_without)
+        array_de_nos = novo_set
+        for (set in array_de_nos):
+            max_value = max(max_value, f(set, x_sets,coeficientes, length))
+        length_set = len(array_de_nos)
+        i = 0
+        #dá pra melhorar essa parte para não ter que fazer DOIS cálculos seguindos
+        while (i < len(array_de_nos)):
+            if (f(array_de_nos[i],x_sets,coeficientes,length) < max_value):
+                array_de_nos.remove(array_de_nos[i])
+            else i++
+        
+        
     
-    #loop de branch and bound
-    
-    #return
+    return array_de_nos[0], f(array_de_nos_0, x_sets,coeficientes,length)
     
 def create_initial_x_set(n):
     x_set = np.zeros(n)
