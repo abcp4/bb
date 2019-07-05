@@ -1,0 +1,12 @@
+Caso 1 - 
+Bom, visto que é possível fazer o problema da mochila usando branch and bound,
+ eu vou tentar fazer um branch-and-bound que se aproxime da busca binária, ou seja
+ 
+ branch(n) - a partir do nodo n, crie 2 nodos, com xi e sem xi. Se todos os xi
+  já foram testados, nao retorne nada
+  
+ bound(n) - se nodo for o maior de todos, fica
+ 
+ relax(n) - valor de x0
+ 
+  
