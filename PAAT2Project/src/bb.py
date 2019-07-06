@@ -35,9 +35,13 @@ def test():
     print('m: ',m)
     print('S')
     #A mascara boolena que queremos encontrar
-    #6,8
+    #2,3,6,8
     x = np.zeros(30)
-    x[3] = 1
-    x[11] = 1
+    x[1] = 1
+    x[2] = 1
+    x[5] = 1
+    x[7] = 1
     v = resultado_de_soma(x,S,c,m)
     print(v)
+    
+test()
