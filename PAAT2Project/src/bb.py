@@ -43,5 +43,3 @@ def test():
     x[7] = 1
     v = resultado_de_soma(x,S,c,m)
     print(v)
-    
-test()
