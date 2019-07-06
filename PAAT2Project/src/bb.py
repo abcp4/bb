@@ -13,13 +13,15 @@ def resultado_de_soma(conjunto_de_x_a_testar,conjuntos_de_x,coefs,m):
     soma = 0
     i = 0
     while i < len(conjuntos_de_x):
-        j = 0
+        j = 1
         somar = False
+        #print(conjuntos_de_x[i])
         while j < len(conjuntos_de_x[i]):
-            index = conjuntos_de_x[i][j]-1
+            index = conjuntos_de_x[i][j]
             index = int(index)
             if conjunto_de_x_a_testar[index] == 1:
                 somar = True
+                #print('index:',index)
             else:
                 somar = False
                 break
@@ -30,16 +32,15 @@ def resultado_de_soma(conjunto_de_x_a_testar,conjuntos_de_x,coefs,m):
     return soma
 
 def test():
-    S,c = load.loadFile("../inputs/nl01-40.txt")
+    S,c = load.loadFile("nl01-40.txt")
     m = len(S)
     print('m: ',m)
     print('S')
     #A mascara boolena que queremos encontrar
     #2,3,6,8
-    x = np.zeros(30)
-    x[1] = 1
-    x[2] = 1
-    x[5] = 1
-    x[7] = 1
+    x = np.zeros(31)
+    x[6] = 1
+    x[8] = 1
     v = resultado_de_soma(x,S,c,m)
     print(v)
+test()
