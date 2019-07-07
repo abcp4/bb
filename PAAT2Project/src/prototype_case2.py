@@ -9,6 +9,7 @@ import copy
 
 length, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
 
+
 def branch_and_bound():
     print(length)
     initial_x_set = create_initial_x_set(length)
@@ -23,15 +24,19 @@ def branch_and_bound():
     x = 1
     last_x = length
     
+    initial_bound = -1000
+    max_quantidade_de_x = 4 
 
     while(x <= last_x) and (len(array_de_nos) > 0):
         novo_set = []
         
+        print(x)
+        
         for set in array_de_nos:
-            set_with = set
-            set[x] = 1
+            set_with = copy.deepcopy(set)
+            set_with[x] = 1
             novo_set.append(set_with)
-            set_without = set
+            set_without = copy.deepcopy(set)
             novo_set.append(set_without)
             
         array_de_nos = novo_set
@@ -44,18 +49,24 @@ def branch_and_bound():
             #print(max_set)
             #print(set)
             if max_value == f_result:
-                #print("Substitute")
+                print("Substitute")
                 max_set = copy.deepcopy(set)
-                #print("new max_set")
-                #print(max_set)
-            #print("---------------------------------")
+                print("new max_set")
+                print(max_set)
+            print("---------------------------------")
             
         length_set = len(array_de_nos)
         i = 0
         #da pra melhorar essa parte para nao ter que fazer DOIS calculos seguindos
         while (i < len(array_de_nos)):
-            if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length) < max_value):
+            if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length) < initial_bound):
+                print(bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length))
                 array_de_nos.remove(array_de_nos[i])
+                initial_bound = initial_bound+1
+            elif (quant_of_x(array_de_nos[i]) > max_quantidade_de_x):
+                print(array_de_nos[i])
+                #array_de_nos.remove(array_de_nos[i])
+                del array_de_nos[i]
             else: i = i+1
         x = x+1
         
@@ -75,5 +86,14 @@ def relax_function(x_sets,coeficientes):
             first_set_available = coeficientes[i]
             break
     return max(0, first_coeficient_of_sets_available)
-    
+
+def quant_of_x(array):
+    quant = 0
+    i = 0
+    length = len(array)
+    while (i < length):
+        quant += array[i]
+        i = i+1
+    return quant
+
 branch_and_bound()
