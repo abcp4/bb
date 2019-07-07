@@ -1,0 +1,11 @@
+---------------
+
+Versão de Prototype_case3:
+
+Branch:
+	- Para cada x, cada possibilidade de teste presente gera dois filhos e
+		é removida: um filho com x = verdadeiro e outro com x ainda = falso.
+Bound:
+	- Valor inicial = -10000, cada possibilidade retirada de resultado
+		menor que esse aumenta esse valor em um.
+	- Quantidade máxima de x na solução = 4, qualquer caso com mais é removido.
