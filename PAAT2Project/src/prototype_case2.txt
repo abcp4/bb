@@ -1,0 +1,19 @@
+Bom, de acordo com Ivan, o problema desse trabalho é um Pseudo Boolean Function.
+
+Então vamos procurar soluções possíveis para ele, e implementar dois.
+
+"Quadratic pseudo-Boolean optimization"
+Hm.
+Bom, como o professor pediu um branch-and-bound e não um grafo, vamos evitar o
+Quadratic.
+
+"Roof Duality" parece ser bom pros casos do trabalho, em que no máximo temos 2 x por
+coeficiente
+
+Bom, os 12 arquivos são representáveis por funções pseudo-booleanas quadráticas.
+Grau delas é sempre igual a 2...
+
+Ok, são 71 páginas pra ler e são 22:26 da noite, vamos ficar com refatoração e
+leitura de soluções.
+
+Esse prototype_case2 vai ser mais sobre refatoração mesmo.
