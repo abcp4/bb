@@ -25,3 +25,15 @@ Ideia para próxima tentativa de branch and bound:
 1 - Começar checando que pares de combinações de 2x resultam no
 menor valor negativo possível, e ESSAS combinações são as iniciais, e fazem branch
 a partir daí, com limite de 4 x.
+
+---------------
+
+Versão de Prototype_case2:
+
+Branch:
+	- Para cada x, cada possibilidade de teste presente gera dois filhos e
+		é removida: um filho com x = verdadeiro e outro com x ainda = falso.
+Bound:
+	- Valor inicial = -10000, cada possibilidade retirada de resultado
+		menor que esse aumenta esse valor em um.
+	- Quantidade máxima de x na solução = 4, qualquer caso com mais é removido.
