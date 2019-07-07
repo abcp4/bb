@@ -20,7 +20,7 @@ def resultado_de_soma(conjunto_de_x_a_testar,conjuntos_de_x,coefs,m):
             index = conjuntos_de_x[i][j]
             index = int(index)
             if conjunto_de_x_a_testar[index] == 1:
-                print(conjuntos_de_x[i])
+                #print(conjuntos_de_x[i])
                 somar = True
                 #print('index:',index)
             else:
@@ -40,12 +40,10 @@ def test():
     
     #A mascara boolena que queremos encontrar
     #6,8
-    #o primeiro item não é usado, a fins de facilitar leitura dos
+    #o primeiro item nao é usado, a fins de facilitar leitura dos
     #dados com relação ao problema
     x = np.zeros(31)
     x[6] = 1
     x[8] = 1
     v = resultado_de_soma(x,S,c,m)
     print(v)
-    
-test()
