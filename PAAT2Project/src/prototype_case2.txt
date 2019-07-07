@@ -19,3 +19,9 @@ leitura de soluções.
 Esse prototype_case2 vai ser mais sobre refatoração mesmo.
 
 Não, vamos fazer melhor. Começamos com -31 e subimos um por iteração.
+
+Ideia para próxima tentativa de branch and bound:
+
+1 - Começar checando que pares de combinações de 2x resultam no
+menor valor negativo possível, e ESSAS combinações são as iniciais, e fazem branch
+a partir daí, com limite de 4 x.
