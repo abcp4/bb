@@ -19,6 +19,8 @@ def resultado_de_soma(conjunto_de_x_a_testar,conjuntos_de_x,coefs,m):
         while j < len(conjuntos_de_x[i]):
             index = conjuntos_de_x[i][j]
             index = int(index)
+            #print (index)
+            #print (conjunto_de_x_a_testar)
             if conjunto_de_x_a_testar[index] == 1:
                 #print(conjuntos_de_x[i])
                 somar = True

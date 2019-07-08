@@ -61,8 +61,8 @@ def loadFileEx(file):
         for j in range(len(elems)):
             elems[j] = float(elems[j])
         #print(elems)
-        print(elems[0])
-        print(elems[1:])
+        #print(elems[0])
+        #print(elems[1:])
 
         coeficientes.append(elems[0]) #coef para cada item    
         conjuntos_de_x.append(elems[1:])#S1,..,Sm

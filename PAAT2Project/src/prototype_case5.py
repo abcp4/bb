@@ -8,12 +8,16 @@ import math
 #passo 2: aplicar branch and bound
 #passo 3: retornar resultado
 
-length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/bqp50-1.txt")
+length_of_x = 0
+conjuntos_de_x = []
+coeficientes = []
 
-print(length_of_x)
+def branch_and_bound(entrada):
+    global length_of_x, conjuntos_de_x, coeficientes
+    length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx(entrada)
 
-def branch_and_bound():
-    print(length_of_x)
+    #print(conjuntos_de_x)
+
     initial_x_set = create_initial_x_set(length_of_x)
     
     array_de_nos = create_initial_array_de_nos()
@@ -25,7 +29,7 @@ def branch_and_bound():
     last_x = length_of_x
 
     while(x <= last_x) and (len(array_de_nos) > 0):
-        print ("x atual e " + str(x) + " | max value e " + str(max_value))
+        #print ("x atual e " + str(x) + " | max value e " + str(max_value) + " | set size e " + str(len(array_de_nos)))
         novo_set = []
         
         for set in array_de_nos:
@@ -56,8 +60,9 @@ def branch_and_bound():
         array_de_nos = apply_bound(array_de_nos)
         x = x+1
         
-    print(max_set)
-    print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
+    #print(max_set)
+    #print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
+    return max_set, bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x)
     
 def create_initial_x_set(n):
     
@@ -71,15 +76,16 @@ def create_initial_array_de_nos():
  
     i = 0  
     limite = len(conjuntos_de_x)
+    #print(conjuntos_de_x)
 
     maior_coef = -math.inf
     while (i < limite):
         maior_coef = max(maior_coef, coeficientes[i])
         i = i+1
     
-    print("Maior coef: " + str(maior_coef))
-    print (length_of_x)
-    print(coeficientes[0:10])
+    #print("Maior coef: " + str(maior_coef))
+    #print (length_of_x)
+    #print(coeficientes[0:10])
     
     if (maior_coef < 0):
         i = length_of_x
@@ -94,8 +100,8 @@ def create_initial_array_de_nos():
                         new_set = create_initial_x_set(length_of_x)
                         new_set[j] = 1
                         new_set[k] = 1
-                        print(str(j) + " " + str(k))
-                        print("---")
+                        #print(str(j) + " " + str(k))
+                        #print("---")
                         array_de_nos.append(copy.deepcopy(new_set))
                     k += 1
                 elif (i >= limite): break
@@ -162,4 +168,7 @@ def quant_of_x(array):
         i = i+1
     return quant
 
-branch_and_bound()
+def teste():
+    conjunto, resultado = branch_and_bound("../inputs/nl01-40.txt")
+    print (conjunto)
+    print (resultado)
