@@ -51,13 +51,18 @@ def loadFileEx(file):
         #print(x) 
         elems = x.split(' ')
         #print(elems)
-        elems = elems[2:]
+        if (elems[1] == ''):
+            elems = elems[2:]
+        else:
+            elems = elems[1:]
         #remove \n from last char
         elems[-1]=elems[-1][:-1]
         #print(elems)
         for j in range(len(elems)):
             elems[j] = float(elems[j])
         #print(elems)
+        print(elems[0])
+        print(elems[1:])
 
         coeficientes.append(elems[0]) #coef para cada item    
         conjuntos_de_x.append(elems[1:])#S1,..,Sm
@@ -69,3 +74,6 @@ def loadFileEx(file):
     #print(coeficientes)
     
     return quant_de_x,conjuntos_de_x,coeficientes
+
+#loadFileEx("../inputs/nl01-40.txt")
+#loadFileEx("../inputs/bqp50-1.txt")
