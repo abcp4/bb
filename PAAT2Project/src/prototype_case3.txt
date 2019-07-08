@@ -29,3 +29,9 @@ Critério de seleção do particionamento:
 
 Resultado: não conseguiu chegar ao valor máximo atingido prévio de nenhum dos .txt.
 Consegue pelo menos manter valores positivos nos 12 casos.
+
+O problema aqui é que eu não considerei uma coisa: casos em que o coeficiente
+não é negativo, mas é zero. Ou seja, não existe. Como a solução ótima não tem
+coeficiente negativo de 2x, o problema falha por natureza.
+
+Correção para prototype_case_4: considerar também casos onde não há coeficiente.
