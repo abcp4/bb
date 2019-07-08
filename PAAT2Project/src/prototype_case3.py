@@ -8,7 +8,7 @@ import math
 #passo 2: aplicar branch and bound
 #passo 3: retornar resultado
 
-length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-51.txt")
+length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
 
 print(length_of_x)
 
@@ -42,7 +42,7 @@ def branch_and_bound():
         for set in array_de_nos:
             f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length_of_x)
             max_value = max(max_value, f_result)
-            #print(max_value)
+            print(max_value)
             #print(f_result)
             #print(max_set)
             #print(set)
@@ -50,7 +50,7 @@ def branch_and_bound():
                 #print("Substitute")
                 max_set = copy.deepcopy(set)
                 #print("new max_set")
-                print(max_set)
+                #print(max_set)
             #print("---------------------------------")
 
         array_de_nos = apply_bound(array_de_nos)
