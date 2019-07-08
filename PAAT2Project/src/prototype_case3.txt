@@ -24,7 +24,5 @@ Percorrendo o espaço de soluções:
 Critério de seleção do particionamento:
 	- Busca em largura.
 
-Bound:
-	- Valor inicial = -10000, cada possibilidade retirada de resultado
-		menor que esse aumenta esse valor em um.
-	- Quantidade máxima de x na solução = 4, qualquer caso com mais é removido.
+Resultado: não conseguiu chegar ao valor máximo atingido prévio de nenhum dos .txt.
+Consegue pelo menos manter valores positivos nos 12 casos.
