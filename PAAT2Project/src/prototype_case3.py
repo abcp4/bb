@@ -8,7 +8,7 @@ import math
 #passo 2: aplicar branch and bound
 #passo 3: retornar resultado
 
-length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
+length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-51.txt")
 
 print(length_of_x)
 
@@ -47,11 +47,11 @@ def branch_and_bound():
             #print(max_set)
             #print(set)
             if max_value == f_result:
-                print("Substitute")
+                #print("Substitute")
                 max_set = copy.deepcopy(set)
-                print("new max_set")
+                #print("new max_set")
                 print(max_set)
-            print("---------------------------------")
+            #print("---------------------------------")
 
         array_de_nos = apply_bound(array_de_nos)
         x = x+1
