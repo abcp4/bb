@@ -33,7 +33,7 @@ Melhoras para case_5:
 	- Na geração de filhos, trocar a geração adicionando 1 ao x por uma
 		inversão do x em questão pro primeiro filho. - OK
 	- Estender a análise do maior coeficiente inicial para casos onde
-		só há um x ou mesmo x nenhum.
+		só há um x ou mesmo x nenhum relacionado ao maior coeficiente. - OK
 	- Melhorar o bound.
 
 

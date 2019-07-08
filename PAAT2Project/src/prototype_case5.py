@@ -8,7 +8,7 @@ import math
 #passo 2: aplicar branch and bound
 #passo 3: retornar resultado
 
-length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
+length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/bqp50-1.txt")
 
 print(length_of_x)
 
@@ -69,14 +69,17 @@ def create_initial_array_de_nos():
     
     array_de_nos = []
  
-    i = length_of_x   
+    i = 0  
     limite = len(conjuntos_de_x)
 
     maior_coef = -math.inf
     while (i < limite):
-        if (conjuntos_de_x[i][0] > 1):
-            maior_coef = max(maior_coef, coeficientes[i])
+        maior_coef = max(maior_coef, coeficientes[i])
         i = i+1
+    
+    print("Maior coef: " + str(maior_coef))
+    print (length_of_x)
+    print(coeficientes[0:10])
     
     if (maior_coef < 0):
         i = length_of_x
@@ -101,9 +104,10 @@ def create_initial_array_de_nos():
             if (i >= limite): break
             
     else:
-        i = length_of_x
+        i = 0
         while (i < limite):
-            if (conjuntos_de_x[i][0] > 1) and (maior_coef == coeficientes[i]):
+            if (maior_coef == coeficientes[i]):
+                #print (conjuntos_de_x[i])
                 set = create_initial_x_set(length_of_x)
                 j = 1
                 while(j < len(conjuntos_de_x[i])):
