@@ -18,7 +18,7 @@ def branch_and_bound():
     
     array_de_nos = create_initial_array_de_nos()
     
-    max_value = 0
+    max_value = create_initial_max_value()
     max_set = []
       
     x = 1
@@ -91,7 +91,10 @@ def create_initial_array_de_nos():
     
     return array_de_nos
 
-def relax_function(set, x):
+def create_initial_max_value():
+    return 0
+
+def higher_bound(set, x):
     #soma dos coeficientes positivos de um so x e 0 que nao foram testados
     #+ valores ja testados
     value = 0
