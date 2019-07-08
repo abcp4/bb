@@ -32,6 +32,8 @@ Melhoras para case_5:
 	- Melhorar o bound.
 	- Na geração de filhos, trocar a geração adicionando 1 ao x por uma
 		inversão do x em questão pro primeiro filho.
+	- Estender a análise do maior coeficiente inicial para casos onde
+		só há um x ou mesmo x nenhum.
 		
 Melhoras para case_6:
 	- Adicionar caminhada pelos nós em questão, ao invés de setar em ordem os x,
