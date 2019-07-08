@@ -2,32 +2,30 @@ import numpy as np
 import bb
 import load
 import copy
+import math
 
 #passo 1: ler dados do arquivo a ser testado
 #passo 2: aplicar branch and bound
 #passo 3: retornar resultado
 
-length, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
+length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
 
+print(length_of_x)
 
 def branch_and_bound():
-    print(length)
-    initial_x_set = create_initial_x_set(length)
+    print(length_of_x)
+    initial_x_set = create_initial_x_set(length_of_x)
     
-    array_de_nos = []
-    array_de_nos.append(initial_x_set)
+    array_de_nos = create_initial_array_de_nos()
     
-    relax_function_value = relax_function(conjuntos_de_x, coeficientes)
-    max_value = relax_function_value
+    max_value = 0
     max_set = []
-    
+      
     x = 1
-    last_x = length
-    
-    initial_bound = -1000
-    max_quantidade_de_x = 4 
+    last_x = length_of_x
 
     while(x <= last_x) and (len(array_de_nos) > 0):
+        print ("x atual e " + str(x))
         novo_set = []
         
         print(x)
@@ -38,11 +36,11 @@ def branch_and_bound():
             novo_set.append(set_with)
             set_without = copy.deepcopy(set)
             novo_set.append(set_without)
-            
+        
         array_de_nos = novo_set
         
         for set in array_de_nos:
-            f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length)
+            f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length_of_x)
             max_value = max(max_value, f_result)
             #print(max_value)
             #print(f_result)
@@ -54,44 +52,82 @@ def branch_and_bound():
                 print("new max_set")
                 print(max_set)
             print("---------------------------------")
-            
-        length_set = len(array_de_nos)
-        i = 0
-        #da pra melhorar essa parte para nao ter que fazer DOIS calculos seguindos
-        while (i < len(array_de_nos)):
-            if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length) < initial_bound):
-                print(bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length))
-                array_de_nos.remove(array_de_nos[i])
-                initial_bound = initial_bound+1
-            elif (quant_of_x(array_de_nos[i]) > max_quantidade_de_x):
-                print(array_de_nos[i])
-                #array_de_nos.remove(array_de_nos[i])
-                del array_de_nos[i]
-            else: i = i+1
+
+        array_de_nos = apply_bound(array_de_nos)
         x = x+1
         
     print(max_set)
-    print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length))
+    print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
     
 def create_initial_x_set(n):
+    
     x_set = np.zeros(n+1)
     #print(type(x_set))
     return x_set 
 
-def relax_function(x_sets,coeficientes):
-    #maximo valor entre primeiro conjunto disponivel e 0
-    first_coeficient_of_sets_available = 0
-    for i in range(len(x_sets)):
-        if (x_sets[i][0] == 1):
-            first_set_available = coeficientes[i]
-            break
-    return max(0, first_coeficient_of_sets_available)
+def create_initial_array_de_nos():
+    
+    array_de_nos = []
+ 
+    i = length_of_x   
+    limite = len(conjuntos_de_x)
+
+    maior_coef = -math.inf
+    while (i < limite):
+        if (conjuntos_de_x[i][0] > 1):
+            maior_coef = max(maior_coef, coeficientes[i])
+        i = i+1
+    
+    i = length_of_x
+    while (i < limite):
+        if (conjuntos_de_x[i][0] > 1) and (maior_coef == coeficientes[i]):
+            set = create_initial_x_set(length_of_x)
+            j = 1
+            while(j < len(conjuntos_de_x[i])):
+                set[int(conjuntos_de_x[i][j])] = 1
+                j = j+1
+            array_de_nos.append(set)
+        i = i+1    
+    
+    return array_de_nos
+
+def relax_function(set, x):
+    #soma dos coeficientes positivos de um so x e 0 que nao foram testados
+    #+ valores ja testados
+    value = 0
+    i = 0
+    while (i < length_of_x(conjuntos_de_x)):
+        if (conjuntos_de_x[i][0] > 1): break
+        xi = conjuntos_de_x[i][1]
+        if (xi < x):
+            value += set[xi] * coeficientes[i][0]
+        else:
+            if (coeficientes[i][0] > 0): value += set[xi] * coeficientes[i][0]
+        i += 1
+    
+    return value
+
+def apply_bound(array_de_nos):
+    quant = len(array_de_nos)
+    i = 0
+    soma = 0
+    while (i < quant):
+        soma += bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x)
+        i += 1
+    media = soma / quant
+    i = 0
+    while (i < quant):
+        if bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) < media:
+            del array_de_nos[i]
+            quant = len(array_de_nos)
+        else: i += 1
+    return array_de_nos
 
 def quant_of_x(array):
     quant = 0
     i = 0
-    length = len(array)
-    while (i < length):
+    length_of_x = len(array)
+    while (i < length_of_x):
         quant += array[i]
         i = i+1
     return quant

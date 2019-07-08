@@ -11,7 +11,7 @@ print("WHAT")
 conjuntos_de_x, coeficientes = load.loadFile("../inputs/nl01-40.txt")
 x_size = 30 #precisamos que load.loadFile tambem retorne quantos x existem
 
-length = x_size
+length_of_x = x_size
 
 def branch_and_bound():
     initial_x_set = create_initial_x_set(x_size)
@@ -24,7 +24,7 @@ def branch_and_bound():
     max_set = []
     
     x = 0
-    last_x = length-1
+    last_x = length_of_x-1
     
 
     while(x <= last_x) and (len(array_de_nos) > 0):
@@ -40,7 +40,7 @@ def branch_and_bound():
         array_de_nos = novo_set
         
         for set in array_de_nos:
-            f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length)
+            f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length_of_x)
             max_value = max(max_value, f_result)
             #print(max_value)
             #print(f_result)
@@ -57,13 +57,13 @@ def branch_and_bound():
         i = 0
         #da pra melhorar essa parte para nao ter que fazer DOIS calculos seguindos
         while (i < len(array_de_nos)):
-            if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length) < max_value):
+            if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) < max_value):
                 array_de_nos.remove(array_de_nos[i])
             else: i = i+1
         x = x+1
         
     print(max_set)
-    print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length))
+    print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
     
 def create_initial_x_set(n):
     x_set = np.zeros(n)
