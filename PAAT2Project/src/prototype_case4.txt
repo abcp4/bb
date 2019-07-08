@@ -1,0 +1,31 @@
+---------------
+
+Versão de Prototype_case4:
+
+Método para encontrar uma boa solução viável:
+	- Inicialmente, checa todos os conjuntos com quantidade de X = 2.
+	- Feito isso, vê quais deles tem o maior coeficiente.
+	- Esse coeficiente, + os valores atrelados aos dois valores individuais,
+		 é a solução viável.
+		 
+Relaxação:
+	- Soma dos coeficientes de x=1 do conjunto que são indeterminados ou positivos.
+	
+Critério de particionamento do espaço de soluções (branch):
+	- A partir de xi, i=1, cada subsolução gera um filho, com xi = true.
+	
+- Bound:
+	- Soma o valor atual de todos e faz média.
+	- Corta todos aqueles abaixo dessa média.
+	(Próxima versão: passar a calcular o higher (pq queremos maximizar)
+	 bound de subespaços futuros)
+	 (o código pra isso já está mais ou menos pronto no higher_bound, falta melhorar)
+
+Percorrendo o espaço de soluções:
+	- xi, i=1 a quantidade de x.
+	
+Critério de seleção do particionamento:
+	- Busca em largura.
+
+Resultado: não conseguiu chegar ao valor máximo atingido prévio de nenhum dos .txt.
+Consegue pelo menos manter valores positivos nos 12 casos.
