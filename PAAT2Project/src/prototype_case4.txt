@@ -5,8 +5,9 @@ Versão de Prototype_case4:
 Método para encontrar uma boa solução viável:
 	- Inicialmente, checa todos os conjuntos com quantidade de X = 2.
 	- Feito isso, vê quais deles tem o maior coeficiente.
-	- Esse coeficiente, + os valores atrelados aos dois valores individuais,
-		 é a solução viável.
+	- Se todos os coeficientes de 2 forem negativos, considera todos os casos onde
+		dois coeficientes são iguais a 0.
+	- Os conjuntos de 2 valores maiores possíveis são soluções viáveis.
 		 
 Relaxação:
 	- Soma dos coeficientes de x=1 do conjunto que são indeterminados ou positivos.
@@ -26,6 +27,15 @@ Percorrendo o espaço de soluções:
 	
 Critério de seleção do particionamento:
 	- Busca em largura.
-
-Resultado: não conseguiu chegar ao valor máximo atingido prévio de nenhum dos .txt.
-Consegue pelo menos manter valores positivos nos 12 casos.
+	
+Melhoras para case_5:
+	- Melhorar o bound.
+	- Na geração de filhos, trocar a geração adicionando 1 ao x por uma
+		inversão do x em questão pro primeiro filho.
+		
+Melhoras para case_6:
+	- Adicionar caminhada pelos nós em questão, ao invés de setar em ordem os x,
+	porquê a partir do momento em que eu não começo do 0,
+	a inversão me faz andar mais de uma vez em x.
+	(Espero que dê para não precisar efetivamente programar uma árvore,
+	se o bound for bom...)
