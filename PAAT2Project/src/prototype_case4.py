@@ -8,7 +8,7 @@ import math
 #passo 2: aplicar branch and bound
 #passo 3: retornar resultado
 
-length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/nl01-40.txt")
+length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx("../inputs/bqp50-1.txt")
 
 print(length_of_x)
 
