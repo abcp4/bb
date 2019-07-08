@@ -40,8 +40,8 @@ def test():
     
     #A mascara boolena que queremos encontrar
     #6,8
-    #o primeiro item nao é usado, a fins de facilitar leitura dos
-    #dados com relação ao problema
+    #o primeiro item nao e usado, a fins de facilitar leitura dos
+    #dados com relacao ao problema
     x = np.zeros(31)
     x[6] = 1
     x[8] = 1
