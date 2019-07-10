@@ -1,0 +1,39 @@
+Bom, de acordo com Ivan, o problema desse trabalho é um Pseudo Boolean Function.
+
+Então vamos procurar soluções possíveis para ele, e implementar dois.
+
+"Quadratic pseudo-Boolean optimization"
+Hm.
+Bom, como o professor pediu um branch-and-bound e não um grafo, vamos evitar o
+Quadratic.
+
+"Roof Duality" parece ser bom pros casos do trabalho, em que no máximo temos 2 x por
+coeficiente
+
+Bom, os 12 arquivos são representáveis por funções pseudo-booleanas quadráticas.
+Grau delas é sempre igual a 2...
+
+Ok, são 71 páginas pra ler e são 22:26 da noite, vamos ficar com refatoração e
+leitura de soluções.
+
+Esse prototype_case2 vai ser mais sobre refatoração mesmo.
+
+Não, vamos fazer melhor. Começamos com -31 e subimos um por iteração.
+
+Ideia para próxima tentativa de branch and bound:
+
+1 - Começar checando que pares de combinações de 2x resultam no
+menor valor negativo possível, e ESSAS combinações são as iniciais, e fazem branch
+a partir daí, com limite de 4 x.
+
+---------------
+
+Versão de Prototype_case2:
+
+Branch:
+	- Para cada x, cada possibilidade de teste presente gera dois filhos e
+		é removida: um filho com x = verdadeiro e outro com x ainda = falso.
+Bound:
+	- Valor inicial = -10000, cada possibilidade retirada de resultado
+		menor que esse aumenta esse valor em um.
+	- Quantidade máxima de x na solução = 4, qualquer caso com mais é removido.
