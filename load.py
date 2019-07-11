@@ -1,5 +1,5 @@
 import numpy as np
-def loadFile(file):
+def loadFile(file,mode = 1):
 	S = []
 	c = []#coeficientes dos produtos
 
@@ -13,7 +13,7 @@ def loadFile(file):
 		#print(x) 
 		elems = x.split(' ')
 		#print(elems)
-		elems = elems[2:]
+		elems = elems[mode:]
 		#remove \n from last char
 		elems[-1]=elems[-1][:-1]
 		#print(elems)
@@ -31,4 +31,3 @@ def loadFile(file):
 	#print(c)
 	
 	return S,c
-	
