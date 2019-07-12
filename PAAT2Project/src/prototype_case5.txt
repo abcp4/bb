@@ -16,7 +16,7 @@ Critério de particionamento do espaço de soluções (branch):
 	- A partir de xi, i=1, cada subsolução gera dois filhos, um igual ao pai,
 		outro com xi invertido
 	
-- Bound:
+- Bound (lower e upper)
 	- Soma o valor atual de todos e faz média.
 	- Corta todos aqueles abaixo dessa média.
 	(Próxima versão: passar a calcular o higher (pq queremos maximizar)
@@ -29,16 +29,22 @@ Percorrendo o espaço de soluções:
 Critério de seleção do particionamento:
 	- Busca em largura.
 	
+Esse método é incompleto: muito bom mas não checa todos os casos possíveis,
+e pode resultar em erro.
+	
 Melhoras para case_5:
 	- Na geração de filhos, trocar a geração adicionando 1 ao x por uma
 		inversão do x em questão pro primeiro filho. - OK
 	- Estender a análise do maior coeficiente inicial para casos onde
 		só há um x ou mesmo x nenhum relacionado ao maior coeficiente. - OK
-	- Melhorar o bound.
-
+	- mudar nome da função de setar o conjunto inicial pra best fit - OK
 
 		
 Melhoras para case_6:
+	- Melhorar o bound.
+		- Lowerbound: maior resultado encontrado até então.
+		- Upperbound: 
+			- 
 	- Adicionar caminhada pelos nós em questão, ao invés de setar em ordem os x,
 	porquê a partir do momento em que eu não começo do 0,
 	a inversão me faz andar mais de uma vez em x.
