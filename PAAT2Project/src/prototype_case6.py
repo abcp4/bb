@@ -30,8 +30,8 @@ def branch_and_bound(entrada):
     last_x = length_of_x
 
     while(x <= last_x) and (len(array_de_nos) > 0):
-        print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
-        if (x == 2): print (array_de_nos)
+        #print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
+        #if (x == 3): print (max_set)
         novo_set = []
         
         for set in array_de_nos:
@@ -190,18 +190,27 @@ def higher_bound(set, x):
 def apply_bound(array_de_nos):
     quant = len(array_de_nos)
     i = 0
-    soma = 0
+    melhor = -1000000
+    segundo_melhor = -1000000
     while (i < quant):
-        soma += bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x)
+        resultado =  bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x)
+        if (resultado >= melhor):
+            segundo_melhor = melhor
+            melhor = resultado
         i += 1
-    media = soma / quant
+        
     i = 0
+    peguei_melhor = False
+    peguei_segundo_melhor = False
+    array_novo_de_nos = []
     while (i < quant):
-        if bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) < media:
-            del array_de_nos[i]
-            quant = len(array_de_nos)
-        else: i += 1
-    return array_de_nos
+        if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) == segundo_melhor):
+            array_novo_de_nos.append(array_de_nos[i])
+        elif (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) == melhor):
+            array_novo_de_nos.append(array_de_nos[i])
+        i += 1
+    
+    return array_novo_de_nos
 
 def quant_of_x(array):
     quant = 0
@@ -213,8 +222,6 @@ def quant_of_x(array):
     return quant
 
 def teste():
-    conjunto, resultado = branch_and_bound("../inputs/bqp50-1.txt")
+    conjunto, resultado = branch_and_bound("../inputs/bqp100-1.txt")
     print (conjunto)
     print (resultado)
-    
-teste()

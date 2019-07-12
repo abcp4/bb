@@ -32,7 +32,7 @@ def resultado_de_soma(conjunto_de_x_a_testar,conjuntos_de_x,coefs,m):
         if (somar):
             soma += coefs[i]
         i = i+1
-    return soma
+    return soma  
 
 def test():
     S,c = load.loadFile("../inputs/nl01-40.txt")

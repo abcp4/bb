@@ -1,6 +1,6 @@
 ---------------
 
-Versão de Prototype_case4:
+Versão de Prototype_case6:
 
 Método para encontrar uma boa solução viável:
 	- Inicialmente, checa todos os conjuntos com quantidade de X = 2.
@@ -32,17 +32,13 @@ Critério de seleção do particionamento:
 Esse método é incompleto: muito bom mas não checa todos os casos possíveis,
 e pode resultar em erro.
 	
-Melhoras para case_5:
-	- Na geração de filhos, trocar a geração adicionando 1 ao x por uma
-		inversão do x em questão pro primeiro filho. - OK
-	- Estender a análise do maior coeficiente inicial para casos onde
-		só há um x ou mesmo x nenhum relacionado ao maior coeficiente. - OK
-	- mudar nome da função de setar o conjunto inicial pra best fit - OK
-	- Ordenar baseando em coeficientes 1 e dos piores pros melhores - OK
-
-		
 Melhoras para case_6:
-	- Colocar corte de variáveis a cada 3 iterações. 
+	- Colocar corte de variáveis a cada 3 iterações. - PÉSSIMA IDEIA.
+	- Colocar corte de variáveis que só mantém os valores iguais aos dois melhores.
+		- DEU RESULTADO MELHOR PRO 500-01. (case5: 50071.0. case6: 51307.0)
+		- Mas deu pior pro 100-1 (case5: 4905.0 case6: 4706.0)
+		- Algumas ficam melhores, algumas ficam piores.
+		- Pegar os que faltam do 500 depois.
 	
 Melhoras para case_7:
 	- Melhorar o bound.
