@@ -66,18 +66,19 @@ class WMaxSat(Annealer):
 
 if __name__ == '__main__':
 
-    length = 31
-    conjuntos_de_x,coeficientes = load.loadFile("nl01-40.txt",mode=2)
+    length = 31 # tamanho max das variaveis
+
+    conjuntos_de_x,coeficientes = load.loadFile("nl01-40.txt",mode=2)#mode 1 se for a snovas instancias
     m = len(conjuntos_de_x)
     initial_x_set = create_initial_x_set(length)
     array_de_nos = []
     array_de_nos.append(initial_x_set)
 
-    init_state = np.zeros(31)
+    init_state = np.zeros(length)
     init_state = init_state.tolist()
 
     
-    tsp = WMaxSat(init_state, conjuntos_de_x,coeficientes)
+    tsp = WMaxSat(init_state, conjuntos_de_x,coeficientes,size = length)
     tsp.steps = 1000
     tsp.copy_strategy = "slice"
     state, e = tsp.anneal()
