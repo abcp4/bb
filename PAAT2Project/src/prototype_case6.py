@@ -30,7 +30,6 @@ def branch_and_bound(entrada):
       
     x = 1
     last_x = length_of_x
-    print("Ha")
 
     while(x <= last_x) and (len(array_de_nos) > 0):
         print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
@@ -43,9 +42,11 @@ def branch_and_bound(entrada):
                 set_inverted[x] = 0
             else:
                 set_inverted[x] = 1
-            novo_set.append(set_inverted)
+            if (upper_bound(set_inverted, x) > lower_bound):
+                novo_set.append(set_inverted)
             same_set = copy.deepcopy(set)
-            novo_set.append(same_set)
+            if (upper_bound(same_set, x) >= lower_bound):
+                novo_set.append(same_set)
         
         array_de_nos = novo_set
         
@@ -67,7 +68,8 @@ def branch_and_bound(entrada):
         
     #print(max_set)
     #print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
-    return max_set, bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x)
+    print(array_de_nos)
+    return max_set, lower_bound
 
 def order_conjuntos_e_coeficientes(length_of_x,old_conjuntos_de_x,old_coeficientes):
     
@@ -184,20 +186,35 @@ def create_initial_max_value():
     
     return maior_valor_inicial
 
-def higher_bound(set, x):
-    #soma dos coeficientes positivos de um so x e 0 que nao foram testados
-    #+ valores ja testados
-    value = 0
-    i = 0
-    while (i < length_of_x(conjuntos_de_x)):
-        if (conjuntos_de_x[i][0] > 1): break
-        xi = conjuntos_de_x[i][1]
-        if (xi < x):
-            value += set[xi] * coeficientes[i][0]
-        else:
-            if (coeficientes[i][0] > 0): value += set[xi] * coeficientes[i][0]
+def upper_bound(set, x):
+    #soma dos coeficientes positivos
+    
+    if (x == length_of_x): return float("inf")
+    
+    i = x+1
+    while (i <= length_of_x):
+        set[i] = 1
         i += 1
     
+    value = 0
+    i = 0
+    isolated_x_length = length_of_x
+    
+    while (i < isolated_x_length):
+        xi = int(math.floor(conjuntos_de_x[i][1]))
+        if (coeficientes[i] > 0) and (set[xi] == 1):
+            value += coeficientes[i]
+        i += 1
+    
+    i = len(coeficientes) - 1
+    
+    while (coeficientes[i] > 0) and (conjuntos_de_x[i][0] == 2):
+        xi = int(math.floor(conjuntos_de_x[i][1]))
+        xii = int(math.floor(conjuntos_de_x[i][2]))
+        if (set[xi] == 1) and (set[xii] == 1):
+             value += coeficientes[i]
+        i -= 1
+        
     return value
 
 def apply_bound(array_de_nos):

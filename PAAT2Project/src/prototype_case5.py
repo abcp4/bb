@@ -213,7 +213,7 @@ def quant_of_x(array):
     return quant
 
 def teste():
-    conjunto, resultado = branch_and_bound("../inputs/bqp50-1.txt")
+    conjunto, resultado = branch_and_bound("../inputs/nl01-40.txt")
     print (conjunto)
     print (resultado)
     
