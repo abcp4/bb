@@ -36,12 +36,8 @@ Critério de particionamento do espaço de soluções (branch):
 	- A partir de xi, i=1, cada subsolução gera dois filhos, um igual ao pai,
 		outro com xi invertido
 	
-- extra Bound
-	- Soma o valor atual de todos e faz média.
-	- Corta todos aqueles abaixo dessa média.
-	(Próxima versão: passar a calcular o higher (pq queremos maximizar)
-	 bound de subespaços futuros)
-	 (o código pra isso já está mais ou menos pronto no higher_bound, falta melhorar)
+- Bound (lower e upper)
+	- Soma de todos os coeficientes positivos possíveis ainda.
 
 Percorrendo o espaço de soluções:
 	- xi, i=1 a quantidade de x.
