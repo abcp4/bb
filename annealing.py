@@ -13,24 +13,29 @@ def create_initial_x_set(n):
 
 
 class WMaxSat(Annealer):
-    def __init__(self, state, conjuntos_de_x,coefs,size= 31, vars_num = 2):
+    def __init__(self, state, conjuntos_de_x,coefs,size= 31, vars_num = 2, mode = 1):
         self.conjuntos_de_x = conjuntos_de_x
         self.coefs = coefs
         self.size = size
-        self.vars_num = 2
+        self.vars_num = 50
+        self.mode = mode
 
         super(WMaxSat, self).__init__(state)  # important!
 
     def move(self):
         a = np.zeros(self.size)
-        for i in range(self.vars_num):
-            x = random.randint(0,self.size-1)
-            if(a[x]==0):
-                a[x] = 1
-            else:
-                a[x] = 0
+        if(self.mode ==1):
+          for i in range(self.vars_num):
+              x = random.randint(0,self.size-1)
+              if(a[x]==0):
+                  a[x] = 1
+              else:
+                  a[x] = 0
+        elif(self.mode==2):
+          a = np.random.randint(2, size=self.size-1)
         #print('state:',a)
         self.state = a.tolist()
+    
 
 
     #queremos maximizar:
