@@ -31,7 +31,7 @@ def branch_and_bound(entrada):
 
     while(x <= last_x) and (len(array_de_nos) > 0):
         print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
-        if (x == 2): print (array_de_nos)
+        #if (x == 2): print (array_de_nos)
         novo_set = []
         
         for set in array_de_nos:

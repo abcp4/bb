@@ -11,7 +11,7 @@ Critério para Percorrer Subconjuntos do espaço de soluções.
 	em xi de 1 a quant(x) particionar, avaliar e cortar soluções ruins.
 
 Relaxações:
-	?
+	- Soma de todos os coeficientes positivos possíveis ainda.
 	
 Método para obter uma "boa" solução viável:
 	- Usar best fit para descobrir o maior coeficiente de quant(x) == 1

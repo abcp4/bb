@@ -28,7 +28,7 @@ def teste_case6(endereco, nome_do_teste):
     print("Estampa do total: " + str( timer.get_stamp("total","clock") ) )
     print("--------------------------------------------")
     print()
-'''
+
 teste_case6("../inputs/nl01-40.txt", "nl01-40")
 teste_case6("../inputs/nl01-41.txt", "nl01-41")
 teste_case6("../inputs/nl01-42.txt", "nl01-42")
@@ -77,7 +77,6 @@ teste_case6("../inputs/bqp250-10.txt", "bqp250-10")
 
 teste_case6("../inputs/bqp500-1.txt", "bqp500-1")
 teste_case6("../inputs/bqp500-2.txt", "bqp500-2")
-'''
 teste_case6("../inputs/bqp500-3.txt", "bqp500-3")
 teste_case6("../inputs/bqp500-4.txt", "bqp500-4")
 teste_case6("../inputs/bqp500-5.txt", "bqp500-5")

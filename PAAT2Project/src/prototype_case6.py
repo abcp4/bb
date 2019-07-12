@@ -24,6 +24,7 @@ def branch_and_bound(entrada):
     initial_x_set = create_initial_x_set(length_of_x)
 
     array_de_nos = create_initial_array_de_nos_best_fit()
+    #print (array_de_nos)
 
     lower_bound = create_initial_max_value()
     max_set = []
@@ -32,8 +33,7 @@ def branch_and_bound(entrada):
     last_x = length_of_x
 
     while(x <= last_x) and (len(array_de_nos) > 0):
-        print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
-        #if (x == 3): print (max_set)
+        #print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
         novo_set = []
         
         for set in array_de_nos:
@@ -42,12 +42,15 @@ def branch_and_bound(entrada):
                 set_inverted[x] = 0
             else:
                 set_inverted[x] = 1
-            if (upper_bound(set_inverted, x) > lower_bound):
+            test_set_inverted = copy.deepcopy(set_inverted)
+            if (upper_bound(test_set_inverted, x) > lower_bound):
                 novo_set.append(set_inverted)
             same_set = copy.deepcopy(set)
-            if (upper_bound(same_set, x) >= lower_bound):
+            test_same_set = copy.deepcopy(same_set)
+            if (upper_bound(test_same_set, x) > lower_bound):
                 novo_set.append(same_set)
         
+        #print(novo_set)
         array_de_nos = novo_set
         
         for set in array_de_nos:
@@ -68,7 +71,7 @@ def branch_and_bound(entrada):
         
     #print(max_set)
     #print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
-    print(array_de_nos)
+    #print(array_de_nos)
     return max_set, lower_bound
 
 def order_conjuntos_e_coeficientes(length_of_x,old_conjuntos_de_x,old_coeficientes):
@@ -212,7 +215,7 @@ def upper_bound(set, x):
         xi = int(math.floor(conjuntos_de_x[i][1]))
         xii = int(math.floor(conjuntos_de_x[i][2]))
         if (set[xi] == 1) and (set[xii] == 1):
-             value += coeficientes[i]
+            value += coeficientes[i]
         i -= 1
         
     return value
@@ -256,4 +259,4 @@ def teste():
     print (conjunto)
     print (resultado)
     
-teste()
+#teste()
