@@ -16,20 +16,21 @@ def branch_and_bound(entrada):
     global length_of_x, conjuntos_de_x, coeficientes
     length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx(entrada)
 
+    conjuntos_de_x, coeficientes = order_conjuntos_e_coeficientes(length_of_x,conjuntos_de_x,coeficientes)
     #print(conjuntos_de_x)
 
     initial_x_set = create_initial_x_set(length_of_x)
     
-    array_de_nos = create_initial_array_de_nos()
+    array_de_nos = create_initial_array_de_nos_best_fit()
     
-    max_value = create_initial_max_value()
+    lower_bound = create_initial_max_value()
     max_set = []
       
     x = 1
     last_x = length_of_x
 
     while(x <= last_x) and (len(array_de_nos) > 0):
-        #print ("x atual e " + str(x) + " | max value e " + str(max_value) + " | set size e " + str(len(array_de_nos)))
+        #print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
         novo_set = []
         
         for set in array_de_nos:
@@ -46,11 +47,11 @@ def branch_and_bound(entrada):
         
         for set in array_de_nos:
             f_result = bb.resultado_de_soma(set, conjuntos_de_x, coeficientes, length_of_x)
-            max_value = max(max_value, f_result)
-            #print(str(set) + " " + str(f_result) + " " + str(max_value))
+            lower_bound = max(lower_bound, f_result)
+            #print(str(set) + " " + str(f_result) + " " + str(lower_bound))
             #print(max_set)
             #print(set)
-            if max_value == f_result:
+            if lower_bound == f_result:
                 #print("Substitute")
                 max_set = copy.deepcopy(set)
                 #print("new max_set")
@@ -63,6 +64,46 @@ def branch_and_bound(entrada):
     #print(max_set)
     #print(bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x))
     return max_set, bb.resultado_de_soma(max_set, conjuntos_de_x, coeficientes,length_of_x)
+
+def order_conjuntos_e_coeficientes(length_of_x,old_conjuntos_de_x,old_coeficientes):
+    
+    '''
+    Separa valores de coeficientes 1
+    Coloca eles no comeco dos novos arrays de conjunto de x e coeficiente
+    Ordena os outros em ordem de menor pra maior
+    retorna tudo
+    '''
+
+    new_conjuntos_de_x = old_conjuntos_de_x[0:length_of_x]
+    new_coeficientes = old_coeficientes[0:length_of_x]
+    
+    array_size = len(old_conjuntos_de_x)
+    temp_conjuntos_de_x = old_conjuntos_de_x[length_of_x+1:array_size]
+    temp_coeficientes = old_coeficientes[length_of_x+1:array_size]
+    
+    
+    class Templine:
+        def __init__(self, coef, conjunto_de_x):
+            self.coef = coef
+            self.conjunto_de_x = conjunto_de_x
+    
+    temp_joined_list = []
+    i = 0
+    while (i < len(temp_coeficientes)):
+        temp_joined_list.append(Templine(temp_coeficientes[i], temp_conjuntos_de_x[i]))
+        i = i+1
+    
+    temp_joined_list.sort(key=lambda x: x.coef, reverse=True)
+    #print(temp_joined_list)
+    
+    i = 0
+    while (i < len(temp_joined_list)):
+        np.concatenate((new_conjuntos_de_x,temp_joined_list[i].conjunto_de_x))
+        np.append(new_coeficientes, temp_joined_list[i].coef)
+        i= i+1
+    
+    return new_conjuntos_de_x,new_coeficientes
+    
     
 def create_initial_x_set(n):
     
@@ -70,7 +111,7 @@ def create_initial_x_set(n):
     #print(type(x_set))
     return x_set 
 
-def create_initial_array_de_nos():
+def create_initial_array_de_nos_best_fit():
     
     array_de_nos = []
  
@@ -172,3 +213,5 @@ def teste():
     conjunto, resultado = branch_and_bound("../inputs/nl01-40.txt")
     print (conjunto)
     print (resultado)
+    
+teste()

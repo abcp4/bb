@@ -16,7 +16,7 @@ def branch_and_bound():
     print(length_of_x)
     initial_x_set = create_initial_x_set(length_of_x)
     
-    array_de_nos = create_initial_array_de_nos()
+    array_de_nos = create_initial_array_de_nos_best_fit()
     
     max_value = create_initial_max_value()
     max_set = []
@@ -62,7 +62,7 @@ def create_initial_x_set(n):
     #print(type(x_set))
     return x_set 
 
-def create_initial_array_de_nos():
+def create_initial_array_de_nos_best_fit():
     
     array_de_nos = []
  
