@@ -14,23 +14,26 @@ coeficientes = []
 
 def branch_and_bound(entrada):
     global length_of_x, conjuntos_de_x, coeficientes
+
     length_of_x, conjuntos_de_x, coeficientes = load.loadFileEx(entrada)
+
 
     conjuntos_de_x, coeficientes = order_conjuntos_e_coeficientes(length_of_x,conjuntos_de_x,coeficientes)
     #print(conjuntos_de_x)
 
     initial_x_set = create_initial_x_set(length_of_x)
-    
+
     array_de_nos = create_initial_array_de_nos_best_fit()
-    
+
     lower_bound = create_initial_max_value()
     max_set = []
       
     x = 1
     last_x = length_of_x
+    print("Ha")
 
     while(x <= last_x) and (len(array_de_nos) > 0):
-        #print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
+        print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
         #if (x == 3): print (max_set)
         novo_set = []
         
@@ -169,7 +172,17 @@ def create_initial_array_de_nos_best_fit():
     return array_de_nos
 
 def create_initial_max_value():
-    return 0
+    
+    size_of_coef_1 = coeficientes[0:length_of_x]
+    maior_valor_inicial = -100000
+    i = 0
+    
+    while (i < length_of_x):
+        if (size_of_coef_1[i] > maior_valor_inicial):
+            maior_valor_inicial = size_of_coef_1[i]
+        i += 1
+    
+    return maior_valor_inicial
 
 def higher_bound(set, x):
     #soma dos coeficientes positivos de um so x e 0 que nao foram testados
@@ -222,6 +235,8 @@ def quant_of_x(array):
     return quant
 
 def teste():
-    conjunto, resultado = branch_and_bound("../inputs/bqp100-1.txt")
+    conjunto, resultado = branch_and_bound("../inputs/nl01-41.txt")
     print (conjunto)
     print (resultado)
+    
+teste()

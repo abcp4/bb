@@ -2,6 +2,26 @@
 
 Versão de Prototype_case6:
 
+Critério de Particionamento do Espaço de Soluções:
+	- Divisão de solução em duas subsoluções. Uma com xi invertido
+	e outra com xi sem alteração.
+	
+Critério para Percorrer Subconjuntos do espaço de soluções.
+	- Dado um conjunto inicial de subconjuntos,
+	em xi de 1 a quant(x) particionar, avaliar e cortar soluções ruins.
+
+Relaxações:
+	?
+	
+Método para obter uma "boa" solução viável:
+	- Usar best fit para descobrir o maior coeficiente de quant(x) == 1
+
+Critério de seleção de particionamento:
+	- Na ordem em que estão no array.
+
+------------
+Detalhes:
+
 Método para encontrar uma boa solução viável:
 	- Inicialmente, checa todos os conjuntos com quantidade de X = 2.
 	- Feito isso, vê quais deles tem o maior coeficiente.
