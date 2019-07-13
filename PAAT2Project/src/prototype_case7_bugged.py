@@ -3,6 +3,7 @@ import bb
 import load
 import copy
 import math
+from array import array
 
 #passo 1: ler dados do arquivo a ser testado
 #passo 2: aplicar branch and bound
@@ -33,21 +34,28 @@ def branch_and_bound(entrada):
     last_x = length_of_x
 
     while(x <= last_x) and (len(array_de_nos) > 0):
-        #print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
+        print ("x atual e " + str(x) + " | max value e " + str(lower_bound) + " | set size e " + str(len(array_de_nos)))
+        #if (x==1): print(array_de_nos)
         novo_set = []
         
         for set in array_de_nos:
+            test_test = copy.deepcopy(set)
+            found_upper_bound = upper_bound(test_test, x)
+            #print(found_upper_bound)
             set_inverted = copy.deepcopy(set)
             if (set_inverted[x] == 1):
                 set_inverted[x] = 0
             else:
                 set_inverted[x] = 1
             test_set_inverted = copy.deepcopy(set_inverted)
-            if (upper_bound(test_set_inverted, x) > lower_bound):
+            found_upper_bound = upper_bound(test_set_inverted, x)
+            #print(found_upper_bound)
+            if (found_upper_bound >= lower_bound):
                 novo_set.append(set_inverted)
             same_set = copy.deepcopy(set)
             test_same_set = copy.deepcopy(same_set)
-            if (upper_bound(test_same_set, x) > lower_bound):
+            found_upper_bound = upper_bound(test_same_set, x)
+            if (found_upper_bound >= lower_bound):
                 novo_set.append(same_set)
         
         #print(novo_set)
@@ -66,7 +74,8 @@ def branch_and_bound(entrada):
                 #print(max_set)
             #print("---------------------------------")
 
-        array_de_nos = apply_bound(array_de_nos)
+        #array_de_nos = cut_bad_result_nodes(array_de_nos)
+        array_de_nos = cut_bad_potential_nodes(array_de_nos, x)
         x = x+1
         
     #print(max_set)
@@ -112,6 +121,8 @@ def order_conjuntos_e_coeficientes(length_of_x,old_conjuntos_de_x,old_coeficient
         new_conjuntos_de_x.append(list(temp_joined_list[i].conjunto_de_x))
         new_coeficientes = np.append(new_coeficientes, temp_joined_list[i].coef)
         i= i+1
+    
+    #print(new_coeficientes)
     
     return new_conjuntos_de_x,new_coeficientes
     
@@ -194,6 +205,8 @@ def upper_bound(set, x):
     
     if (x == length_of_x): return float("inf")
     
+    origin_set = copy.deepcopy(set)
+    
     i = x+1
     while (i <= length_of_x):
         set[i] = 1
@@ -209,7 +222,7 @@ def upper_bound(set, x):
             value += coeficientes[i]
         i += 1
     
-    i = len(coeficientes) - 1
+    i = length_of_x
     
     while (coeficientes[i] > 0) and (conjuntos_de_x[i][0] == 2):
         xi = int(math.floor(conjuntos_de_x[i][1]))
@@ -217,10 +230,47 @@ def upper_bound(set, x):
         if (set[xi] == 1) and (set[xii] == 1):
             value += coeficientes[i]
         i -= 1
+    
+    somatorio = value
+    
+    somatorio_negativo = 0
+    
+    i = x+1
+    
+    while (i <= length_of_x):
+        neg_0 = 0
+        neg_1 = 0
         
-    return value
+        if (origin_set[i] == 0):
+        
+            if (coeficientes[i-1] > 0):
+                neg_0 -= coeficientes[i-1]
+                
+            neg_i = length_of_x
+            
+            while (neg_i < len(coeficientes) and (coeficientes[neg_i] > 0)):
+                if (conjuntos_de_x[neg_i][1] == i) or ((conjuntos_de_x[neg_i][1] <= x) and (conjuntos_de_x[neg_i][2] == i)):
+                    neg_0 -= coeficientes[neg_i]
+                neg_i += 1
+        
+        neg_i = len(coeficientes)-1
+        
+        if (coeficientes[i-1] < 0):
+            neg_1 += coeficientes[i-1]
+            
+        while (neg_i > length_of_x) and (coeficientes[neg_i] < 0):
+            if (conjuntos_de_x[neg_i][1] == i) or ((conjuntos_de_x[neg_i][1] <= x) and (conjuntos_de_x[neg_i][2] == i)):
+                neg_1 += coeficientes[neg_i]
+            neg_i -= 1
+        
+        somatorio_negativo += max(neg_0, neg_1)
+        i += 1
+    
+    output = somatorio + somatorio_negativo
+    
+    return output
 
-def apply_bound(array_de_nos):
+def cut_bad_result_nodes(array_de_nos):
     quant = len(array_de_nos)
     i = 0
     melhor = -1000000
@@ -233,13 +283,34 @@ def apply_bound(array_de_nos):
         i += 1
         
     i = 0
-    peguei_melhor = False
-    peguei_segundo_melhor = False
     array_novo_de_nos = []
     while (i < quant):
         if (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) == segundo_melhor):
             array_novo_de_nos.append(array_de_nos[i])
         elif (bb.resultado_de_soma(array_de_nos[i], conjuntos_de_x, coeficientes, length_of_x) == melhor):
+            array_novo_de_nos.append(array_de_nos[i])
+        i += 1
+    
+    return array_novo_de_nos
+
+def cut_bad_potential_nodes(array_de_nos, x):
+    quant = len(array_de_nos)
+    i = 0
+    melhor = -1000000
+    segundo_melhor = -1000000
+    while (i < quant):
+        resultado = upper_bound(copy.deepcopy(array_de_nos[i]), x)
+        if (resultado >= melhor):
+            segundo_melhor = melhor
+            melhor = resultado
+        i += 1
+        
+    i = 0
+    array_novo_de_nos = []
+    while (i < quant):
+        if (upper_bound(copy.deepcopy(array_de_nos[i]), x) == segundo_melhor):
+            array_novo_de_nos.append(array_de_nos[i])
+        elif (upper_bound(copy.deepcopy(array_de_nos[i]), x) == melhor):
             array_novo_de_nos.append(array_de_nos[i])
         i += 1
     
@@ -255,8 +326,8 @@ def quant_of_x(array):
     return quant
 
 def teste():
-    conjunto, resultado = branch_and_bound("../inputs/nl01-41.txt")
+    conjunto, resultado = branch_and_bound("../inputs/nl01-40.txt")
     print (conjunto)
     print (resultado)
     
-#teste()
+teste()

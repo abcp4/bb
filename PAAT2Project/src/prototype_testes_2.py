@@ -7,6 +7,7 @@ def teste_case6(endereco, nome_do_teste):
     iteracoes = 0
     
     tempo_total = 0
+    
     timer.reset()
     timer.start()
     #print (tempo_total)
@@ -26,8 +27,12 @@ def teste_case6(endereco, nome_do_teste):
     print("Tempo Medio: " + str( timer.get_time() / iteracoes ) +" s")
     print("Ultima Chamada: " + str( timer.get_time("last","micro") ) +" \u00B5s")
     print("Estampa do total: " + str( timer.get_stamp("total","clock") ) )
+    print("---------------------------------------------")
+    print("Para tabela")
+    print(nome_do_teste + ";" + str(result[2]) + ";" + str(result[1]) + ";" + str(timer.get_time()) + ";" + str(iteracoes) + ";" + str(timer.get_time()/iteracoes))
     print("--------------------------------------------")
     print()
+    #return (nome_do_teste + ";" + str(result[2]) + ";" + str(result[1]) + ";" + str(timer.get_time()) + ";" + str(iteracoes) + ";" + str(timer.get_time()/iteracoes))
 
 teste_case6("../inputs/nl01-40.txt", "nl01-40")
 teste_case6("../inputs/nl01-41.txt", "nl01-41")

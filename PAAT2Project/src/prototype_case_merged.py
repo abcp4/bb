@@ -3,6 +3,8 @@ import bb
 import load
 import copy
 import math
+import annealing
+import anneal
 
 #passo 1: ler dados do arquivo a ser testado
 #passo 2: aplicar branch and bound
@@ -23,7 +25,7 @@ def branch_and_bound(entrada):
     array_de_nos = create_initial_array_de_nos_best_fit()
     #print (array_de_nos)
 
-    lower_bound = create_initial_max_value()
+    lower_bound = annealing.teste(entrada)[1]
     max_set = []
       
     x = 1
@@ -244,6 +246,7 @@ def quant_of_x(array):
     return quant
 
 def teste():
-    conjunto, resultado = branch_and_bound("../inputs/bqp50-1.txt")
+    conjunto, resultado, limite = branch_and_bound("../inputs/bqp50-2.txt")
     print (conjunto)
     print (resultado)
+    print (limite)

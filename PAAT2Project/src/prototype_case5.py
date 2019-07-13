@@ -59,7 +59,7 @@ def branch_and_bound(entrada):
                 #print(max_set)
             #print("---------------------------------")
 
-        array_de_nos = apply_bound(array_de_nos)
+        array_de_nos = cut_bad_result_nodes(array_de_nos)
         x = x+1
         
     #print(max_set)
@@ -187,7 +187,7 @@ def higher_bound(set, x):
     
     return value
 
-def apply_bound(array_de_nos):
+def cut_bad_result_nodes(array_de_nos):
     quant = len(array_de_nos)
     i = 0
     soma = 0

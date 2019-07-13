@@ -3,6 +3,8 @@ import bb
 import load
 import copy
 import math
+import annealing
+import anneal
 
 #passo 1: ler dados do arquivo a ser testado
 #passo 2: aplicar branch and bound
@@ -20,11 +22,36 @@ def branch_and_bound(entrada):
     conjuntos_de_x, coeficientes = order_conjuntos_e_coeficientes(length_of_x,conjuntos_de_x,coeficientes)
     #print(conjuntos_de_x)
 
-    array_de_nos = create_initial_array_de_nos_best_fit()
+    starting_kick_0, lower_bound_0 = annealing.teste(entrada)
+    starting_kick_1, lower_bound_1 = annealing.teste(entrada)
+    starting_kick_2, lower_bound_2 = annealing.teste(entrada)
+    starting_kick_3, lower_bound_3 = annealing.teste(entrada)
+    starting_kick_4, lower_bound_4 = annealing.teste(entrada)
+    
+    lower_bound = max(lower_bound_0, lower_bound_1, lower_bound_2, lower_bound_3, lower_bound_4)
+    
+    if (lower_bound == lower_bound_0):
+        starting_kick = starting_kick_0
+    elif (lower_bound == lower_bound_1):
+        starting_kick = starting_kick_1
+    elif (lower_bound == lower_bound_2):
+        starting_kick = starting_kick_2
+    elif (lower_bound == lower_bound_3):
+        starting_kick = starting_kick_2
+    elif (lower_bound == lower_bound_4):
+        starting_kick = starting_kick_2
+
+    first_node = create_initial_x_set(length_of_x)
+
+    for i in starting_kick:
+        first_node[i-1] = 1
+
+    array_de_nos = []
+    array_de_nos.append(first_node)
     #print (array_de_nos)
 
-    lower_bound = create_initial_max_value()
-    max_set = []
+
+    max_set = first_node
       
     x = 1
     last_x = length_of_x
@@ -193,7 +220,11 @@ def upper_bound(set, x):
     isolated_x_length = length_of_x
     
     while (i < isolated_x_length):
+        #print(i)
+        #print(len(coeficientes))
+        #print(len(set))
         xi = int(math.floor(conjuntos_de_x[i][1]))
+        #print(xi)
         if (coeficientes[i] > 0) and (set[xi] == 1):
             value += coeficientes[i]
         i += 1
@@ -244,6 +275,7 @@ def quant_of_x(array):
     return quant
 
 def teste():
-    conjunto, resultado = branch_and_bound("../inputs/bqp50-1.txt")
+    conjunto, resultado, limite = branch_and_bound("../inputs/nl01-40.txt")
     print (conjunto)
     print (resultado)
+    print (limite)

@@ -38,6 +38,7 @@ Critério de particionamento do espaço de soluções (branch):
 	
 - Bound (lower e upper)
 	- Soma de todos os coeficientes positivos possíveis ainda.
+	
 
 Percorrendo o espaço de soluções:
 	- xi, i=1 a quantidade de x.
@@ -47,13 +48,4 @@ Critério de seleção do particionamento:
 	
 Esse método é incompleto: muito bom mas não checa todos os casos possíveis,
 e pode resultar em erro.
-	
-Melhoras para case_6:
-	- Colocar corte de variáveis a cada 3 iterações. - PÉSSIMA IDEIA.
-	- Colocar corte de variáveis que só mantém os valores iguais aos dois melhores.
-		- DEU RESULTADO MELHOR PRO 500-01. (case5: 50071.0. case6: 51307.0)
-		- Mas deu pior pro 100-1 (case5: 4905.0 case6: 4706.0)
-		- Algumas ficam melhores, algumas ficam piores.
-		- Pegar os que faltam do 500 depois.
-	- Upperbound simples adicionado.
 	
